@@ -63,7 +63,7 @@ try {
     const user = await User.findById(req.userId);
     user.history.push(command)
     ////////////////////////////
-     await user.save(); 
+     user.save(); 
      //////////////////////////////////////////////////////
     const userName = user.name
     const assistantName = user.assistantName
