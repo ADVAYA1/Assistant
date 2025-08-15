@@ -62,20 +62,22 @@ try {
     const {command} = req.body
     const user = await User.findById(req.userId);
     user.history.push(command)
-    user.save()
-    const userName = user.userName
+    ////////////////////////////
+     await user.save(); 
+     //////////////////////////////////////////////////////
+    const userName = user.name
     const assistantName = user.assistantName
 
 
     const result = await geminiResponse(command,assistantName,userName);
 
-    const jsonMatch = result.json(/{[\s\S]*}/)
+    const jsonMatch = result.match(/{[\s\S]*}/)
     if(!jsonMatch)
     {
         return res.status(400).json({ message: "Gemini response error" });
     }
 
-    const gemResult = Json.parse(jsonMatch[0])
+    const gemResult = JSON.parse(jsonMatch[0])
     const type = gemResult.type
     switch(type){
         case  'get-date' :  
