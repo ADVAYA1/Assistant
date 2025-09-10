@@ -7,7 +7,7 @@ import image4 from '../assets/image4.jpg';
 import image5 from '../assets/image5.png';
 import { RiImageAddLine } from 'react-icons/ri';
 import { useRef } from 'react';
-import { userDataContext } from '../context/userContext.jsx';
+import { userDataContext } from '../Context/userContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import { MdKeyboardBackspace } from "react-icons/md";
 import ParticlesBackground from "../components/ParticlesBackground.jsx";

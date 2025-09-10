@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route , Navigate} from 'react-router-dom';
 import { Suspense } from 'react';
-import { userDataContext } from './context/userContext.jsx';
+import { userDataContext } from './Context/userContext.jsx';
 const SignIn = React.lazy(() => import('./pages/SignIn.jsx'));
 const SignUp = React.lazy(() => import('./pages/SignUp.jsx'));
 const Customize = React.lazy(() => import('./pages/Customize.jsx'));

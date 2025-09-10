@@ -6,7 +6,7 @@ import ParticlesBackground from "../components/ParticlesBackground.jsx";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
-import { userDataContext } from '../context/userContext.jsx';
+import { userDataContext } from '../Context/userContext.jsx';
 import axios from 'axios';
 
 function SignIn() { 
