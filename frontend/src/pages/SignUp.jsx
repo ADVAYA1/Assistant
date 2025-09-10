@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import bg from "../assets/authBg.jpeg";
+import ParticlesBackground from "../components/ParticlesBackground.jsx";
 
 
 import { IoEye } from "react-icons/io5";
@@ -44,14 +44,15 @@ function SignUp() {
             console.log(err);
             setUserData(null);
             setLoading(false);
-            setErr(err.response.data.message);
+            setErr(err?.response?.data?.message || "Sign up failed");
         }
       }
 
 
 
     return (
-    <div className='w-full h-[100vh] bg-cover flex justify-center items-center' style={{backgroundImage:`url(${bg})`}} >
+    <div className='w-full h-[100vh] bg-cover flex justify-center items-center relative overflow-hidden'>
+       <ParticlesBackground variant="auth" />
        
        <form className=' w-[90%] h-[600px] max-w-[500px] bg-[#00000000] backdrop-blur shadow-lg shadow-black flex flex-col items-center justify-center gap-[20px] px-[20px]' onSubmit={handleSignUp}>
         <h1 className='text-white text-[30px] font-semibold mb-[30px]'> Register to <span  className='text-blue-400'>Virtual Assistant</span></h1>

@@ -1,20 +1,22 @@
 import React from 'react';
 import { Routes, Route , Navigate} from 'react-router-dom';
-import SignIn from './pages/SignIn.jsx';
-import SignUp from './pages/SignUp.jsx';
-import Customize from './pages/Customize.jsx';
+import { Suspense } from 'react';
 import { userDataContext } from './context/userContext.jsx';
-import Home from './pages/Home.jsx';
-import Customize2 from './pages/Customize2.jsx';
+const SignIn = React.lazy(() => import('./pages/SignIn.jsx'));
+const SignUp = React.lazy(() => import('./pages/SignUp.jsx'));
+const Customize = React.lazy(() => import('./pages/Customize.jsx'));
+const Home = React.lazy(() => import('./pages/Home.jsx'));
+const Customize2 = React.lazy(() => import('./pages/Customize2.jsx'));
 
 
 function App() { 
   
-  const {userData,setUSerData} = React.useContext(userDataContext);
+  const {userData} = React.useContext(userDataContext);
   
   return (
    <>
    
+  <Suspense fallback={<div className='w-full h-[100vh] flex items-center justify-center text-white'>Loading...</div>}>
   <Routes>
 
     <Route path="/" element={ (userData?.user?.assistantImage && userData?.user?.assistantName)? <Home/> : <Navigate to={"/customize"} />}/>
@@ -26,6 +28,7 @@ function App() {
       <Route path="/customize2" element={ userData ? <Customize2 /> : <Navigate to = {"/signup"} />} />
 
   </Routes>
+  </Suspense>
   </> 
     
   );

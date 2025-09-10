@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import bg from "../assets/authBg.jpeg";
+import ParticlesBackground from "../components/ParticlesBackground.jsx";
 
 
 import { IoEye } from "react-icons/io5";
@@ -40,7 +40,7 @@ function SignIn() {
         catch(err){
             console.log(err);
             setUserData(null);
-            setErr(err.response.data.message);
+            setErr(err?.response?.data?.message || "Sign in failed");
             setLoading(false);
         }
       }
@@ -48,7 +48,8 @@ function SignIn() {
 
 
     return (
-    <div className='w-full h-[100vh] bg-cover flex justify-center items-center' style={{backgroundImage:`url(${bg})`}} >
+    <div className='w-full h-[100vh] bg-cover flex justify-center items-center relative overflow-hidden'>
+       <ParticlesBackground variant="auth" />
        
        <form className=' w-[90%] h-[600px] max-w-[500px] bg-[#00000000] backdrop-blur shadow-lg shadow-black flex flex-col items-center justify-center gap-[20px] px-[20px]' onSubmit={handleSignIn}>
         <h1 className='text-white text-[30px] font-semibold mb-[30px]'> Sign In to <span  className='text-blue-400'>Virtual Assistant</span></h1>
@@ -70,7 +71,7 @@ function SignIn() {
           *{err}
           </p>}
 
-        <button className='mt-[60px] min-w-[150px] h-[60px] bg-white text-blue rounded-full text- [18px] font-semibold hover:bg-blue-600 transition duration-300' disabled={loading}>{loading ? "Loading...": "Sign In" }</button>
+        <button className='mt-[60px] min-w-[150px] h-[60px] bg-red-600 text-white rounded-full text- [18px] font-semibold hover:bg-red-700 transition duration-300' disabled={loading}>{loading ? "Loading...": "Sign In" }</button>
         
        <p className ='text-[white] text-[18px] ' onClick={()=>navigate("/signup")}>Want to create an Account ? <span className='text-[blue] cursor-pointer'> Sign Up</span></p>
        </form>

@@ -6,6 +6,7 @@ import { BiMenuAltRight } from "react-icons/bi";
 import { RxCross1 } from "react-icons/rx";
 import aiImg from "../assets/ai.gif"
 import userImg from "../assets/user.gif"
+import ParticlesBackground from "../components/ParticlesBackground.jsx";
 
 
 function Home() {
@@ -20,7 +21,7 @@ function Home() {
     const recognitionRef = useRef(null)
     const [ham, setHam] = useState(false)
     const isRecognizingRef = useRef(false)
-    const synth = window.speechSynthesis
+    const synth = typeof window !== 'undefined' ? window.speechSynthesis : null
 
     const handleLogout = async () => {
         try {
@@ -36,6 +37,8 @@ function Home() {
         }
 
     }
+
+    
 
     const startRecognition = () => {
 
@@ -117,7 +120,11 @@ function Home() {
 
 
     useEffect(() => {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const SpeechRecognition = typeof window !== 'undefined' ? (window.SpeechRecognition || window.webkitSpeechRecognition) : null;
+        if(!SpeechRecognition){
+            setAiText("Speech recognition unsupported in this browser. Please use Chrome or Edge.")
+            return;
+        }
 
         const recognition = new SpeechRecognition()
 
@@ -210,9 +217,13 @@ function Home() {
 
         };
 
-         const greeting = new SpeechSynthesisUtterance(`Hello ${userData?.user?.name}, What can I help you ?`);
-        greeting.lang = 'hi-IN';
-        window.speechSynthesis.speak(greeting);
+        try{
+            const greeting = new SpeechSynthesisUtterance(`Namaste ${userData?.user?.name}, main aapki sahayata ke liye taiyaar hoon.`);
+            greeting.lang = 'hi-IN';
+            window.speechSynthesis?.speak(greeting);
+        }catch(e){
+            // ignore speech errors
+        }
 
         return () => {
             isMounted = false;
@@ -230,12 +241,15 @@ function Home() {
 
 
     return (
-        <div className=' w-full h-[100vh] bg-gradient-to-t from-[black] to-[#035761] flex justify-center items-center flex-col gap-[15px] overflow-hidden'>
+        <div className=' w-full h-[100vh] relative flex justify-center items-center flex-col gap-[15px] overflow-hidden'>
+            <ParticlesBackground variant="home" />
             <BiMenuAltRight className='lg:hidden text-white absolute top-[20px] right-[20px] w-[25px] h-[25px]' onClick={() => setHam(true)} />
             <div className={`absolute lg:hidden top-0 w-full h-full bg-[#00000053] backdrop-blur-lg p-[20px] flex flex-col gap-[20px] items-start ${ham ? "translate-x-0" : "translate-x-full"} transition-transform`}>
                 <RxCross1 className='text-white absolute top-[20px] right-[20px] w-[25px] h-[25px]' onClick={() => setHam(false)} />
                 <button className='min-w-[150px] h-[60px] bg-white text-blue rounded-full text-[10px] font-semibold hover:bg-blue-600 transition duration-300 cursor-pointer' onClick={handleLogout} >Logout</button>
                 <button className='min-w-[150px] h-[60px] bg-white text-blue rounded-full text-[10px] font-semibold hover:bg-blue-600 transition duration-300 cursor-pointer' onClick={() => navigate("/customize")} > Customize Your Assistant </button>
+
+                
 
                 <div className='w-full h-[2px] bg-gray-400'></div>
                 <h1 className='text-white font-semibold text-[19px] '> History</h1>

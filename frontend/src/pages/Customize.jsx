@@ -10,6 +10,7 @@ import { useRef } from 'react';
 import { userDataContext } from '../context/userContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import { MdKeyboardBackspace } from "react-icons/md";
+import ParticlesBackground from "../components/ParticlesBackground.jsx";
 
 
 
@@ -35,7 +36,8 @@ function Customize() {
         setFrontendImage(URL.createObjectURL(file));
     }
     return (
-        <div className = ' w-full h-[100vh] bg-gradient-to-t from-[black] to-[#035761] flex justify-center items-center flex-col p-[20px] '>
+        <div className = ' w-full h-[100vh] relative flex justify-center items-center flex-col p-[20px] '>
+            <ParticlesBackground variant="customize" />
 
             <MdKeyboardBackspace  className='absolute top-[30px] left-[30px] text-white w-[25px] h-[25px] cursor-pointer' onClick={()=>navigate("/")}/>   
             
